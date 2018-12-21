@@ -1,289 +1,287 @@
-<!doctype html>
-<html>
+<!DOCTYPE html>
+<html lang="en">
 
   <head>
-    <script src="http://code.jquery.com/jquery-latest.min.js"></script>
+    <meta charset="UTF-8">
+
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
     <script src="http://d3js.org/d3.v3.min.js" charset="utf-8"></script>
     <script src="d3-timeline.js"></script>
+    <script src="script.js"></script>
 
-    <style type="text/css">
-      .axis path,
-      .axis line {
-        fill: none;
-        stroke: black;
-        shape-rendering: crispEdges;
-      }
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Slab:300|Roboto:300" rel="stylesheet">
 
-      .axis text {
-        font-family: sans-serif;
-        font-size: 10px;
-      }
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-      .timeline-label {
-        font-family: sans-serif;
-        font-size: 12px;
-      }
-
-      #timeline2 .axis {
-        transform: translate(0px, 40px);
-        -ms-transform: translate(0px, 40px);
-        /* IE 9 */
-        -webkit-transform: translate(0px, 40px);
-        /* Safari and Chrome */
-        -o-transform: translate(0px, 40px);
-        /* Opera */
-        -moz-transform: translate(0px, 40px);
-        /* Firefox */
-      }
-
-      .coloredDiv {
-        height: 20px;
-        width: 20px;
-        float: left;
-      }
-    </style>
-    <script type="text/javascript">
-      window.onload = function() {
-
-        var outageData = [{
-            label: "Astoria",
-            times: [{
-              "starting_time": 1543122000000,
-              "ending_time": 1543640400000
-            }]
-          },
-          {
-            label: "Baruch Houses",
-            times: [{
-              "starting_time": 1543381200000,
-              "ending_time": 1543554000000
-            }]
-          },
-          {
-            label: "Boulevard",
-            times: [{
-              "starting_time": 1542344400000,
-              "ending_time": 1542603600000
-            }]
-          },
-          {
-            label: "Bronx River",
-            times: [{
-              "starting_time": 1543726800000,
-              "ending_time": 1543899600000
-            }]
-          },
-          {
-            label: "Cooper Park",
-            times: [{
-              "starting_time": 1543899600000,
-              "ending_time": 1543986000000
-            }]
-          },
-          {
-            label: "Cypress Hills",
-            times: [{
-              "starting_time": 1543294800000,
-              "ending_time": 1543640400000
-            }]
-          },
-          {
-            label: "Glenwood",
-            times: [{
-              "starting_time": 1543986000000,
-              "ending_time": 1544072400000
-            }]
-          },
-          {
-            label: "Gowanus",
-            times: [{
-              "starting_time": 1543554000000,
-              "ending_time": 1543640400000
-            }]
-          },
-          {
-            label: "Independence",
-            times: [{
-              "starting_time": 1542776400000,
-              "ending_time": 1543554000000
-            }]
-          },
-          {
-            label: "Ingersoll",
-            times: [{
-              "starting_time": 1542949200000,
-              "ending_time": 1543467600000
-            }]
-          },
-          {
-            label: "Jefferson",
-            times: [{
-              "starting_time": 1543726800000,
-              "ending_time": 1543899600000
-            }]
-          },
-          {
-            label: "Marcy",
-            times: [{
-              "starting_time": 1541912400000,
-              "ending_time": 1542603600000
-            }]
-          },
-          {
-            label: "Marlboro",
-            times: [{
-              "starting_time": 1542690000000,
-              "ending_time": 1542776400000
-            }]
-          },
-          {
-            label: "O'Dwyer Gardens",
-            times: [{
-              "starting_time": 1542517200000,
-              "ending_time": 1542690000000
-            }]
-          },
-          {
-            label: "Park Avenue",
-            times: [{
-              "starting_time": 1543986000000,
-              "ending_time": 1544072400000
-            }]
-          },
-          {
-            label: "Pomonok",
-            times: [{
-                "starting_time": 1543122000000,
-                "ending_time": 1543294800000
-              },
-              {
-                "starting_time": 1544331600000,
-                "ending_time": 1544418000000
-              }
-            ]
-          },
-          {
-            label: "Ravenswood",
-            times: [{
-              "starting_time": 1543554000000,
-              "ending_time": 1543813200000
-            }]
-          },
-          {
-            label: "Red Hook East",
-            times: [{
-              "starting_time": 1543294800000,
-              "ending_time": 1543640400000
-            }]
-          },
-          {
-            label: "Red Hook West",
-            times: [{
-                "starting_time": 1542430800000,
-                "ending_time": 1542603600000
-              },
-              {
-                "starting_time": 1543381200000,
-                "ending_time": 1543467600000
-              },
-              {
-                "starting_time": 1543467600000,
-                "ending_time": 1543640400000
-              }
-            ]
-          },
-          {
-            label: "Sheepshead Bay",
-            times: [{
-              "starting_time": 1542085200000,
-              "ending_time": 1542690000000
-            }]
-          },
-          {
-            label: "South Beach",
-            times: [{
-              "starting_time": 1542344400000,
-              "ending_time": 1542603600000
-            }]
-          },
-          {
-            label: "South Jamaica II",
-            times: [{
-              "starting_time": 1543208400000,
-              "ending_time": 1543640400000
-            }]
-          },
-          {
-            label: "Throggs Neck",
-            times: [{
-              "starting_time": 1542085200000,
-              "ending_time": 1542949200000
-            }]
-          },
-          {
-            label: "Tompkins",
-            times: [{
-              "starting_time": 1542258000000,
-              "ending_time": 1542603600000
-            }]
-          },
-          {
-            label: "Washington Heights",
-            times: [{
-              "starting_time": 1543986000000,
-              "ending_time": 1544072400000
-            }]
-          },
-          {
-            label: "West Brighton I",
-            times: [{
-              "starting_time": 1543726800000,
-              "ending_time": 1543899600000
-            }]
-          },
-          {
-            label: "Woodside",
-            times: [{
-              "starting_time": 1543899600000,
-              "ending_time": 1543986000000
-            }]
-          }
-        ];
-
-        var width = 750;
-
-        function timelineAxisTop() {
-          var chart = d3.timeline()
-            .showAxisTop()
-            .tickFormat({
-              format: d3.time.format("%m/%d"),
-              tickTime: d3.time.days,
-              tickInterval: 2,
-              tickSize: 3
-            })
-            .stack()
-            .margin({
-              left: 100,
-              right: 0,
-              top: 0,
-              bottom: 0
-            });
-
-          var svg = d3.select("#timelineAxisTop").append("svg").attr("width", width)
-            .datum(outageData).call(chart);
-        }
-
-        timelineAxisTop();
-      }
-    </script>
+    <title>JJW Capstone</title>
+    <link rel="icon" type="image/x-icon" href="images/favicon.ico">
   </head>
 
   <body>
+    <header>
+      <div class="videoHeader">
+        <video autoplay muted loop>
+        <source src="video/doorOpenClose4.mp4" type="video/mp4">
+        </video>
 
-    <div>
-      <h3>A month of NYCHA outages</h3>
-      <div width="100%" id="timelineAxisTop"></div>
-    </div>
+        <div id="topText">
+          <h1>Trapped in the Tower</h1>
+          <h2>How NYCHA's underperforming elevators hurt disabled tenants</h2>
+          <h3>By Jaclyn Jeffrey-Wilensky</h3>
+        </div>
+      </div>
+    </header>
+
+    <section>
+      <p>After a week in the hospital, Diamond Freeman was finally feeling well enough to go home. An asthma attack, compounded by her chronic lung disease and a bout of pneumonia, had landed her in intensive care. She missed her children and her
+        20th-floor apartment in the Mitchel Houses, a 1,732-unit development in the Bronx run by the New York City Housing Authority.</p>
+
+      <p>Freeman was still feeling weak on the ride home. She leaned on her cane as she walked slowly into the fluorescent-lit lobby.</p>
+
+      <p>&ldquo;USE ELEVATORS PROPERLY,&rdquo; read a sign posted on the green brick wall between the elevators. &ldquo;Safety is everyone&rsquo;s responsibility,&rdquo; read another.</p>
+
+      <p>Both elevators sat in the lobby, unmoving.</p>
+
+      <p>Freeman&rsquo;s stomach sank. It was a &ldquo;double header&rdquo;: both the building&rsquo;s elevators were out of service. It was a common sight in many buildings across the housing authority&rsquo;s 326 developments. A federal probe
+        found that in 2016, 70 percent of the housing authority&rsquo;s elevator buildings experienced at least one outage that affected all elevators. </p>
+
+      <p>Freeman hated taking the stairs. They reeked of urine and were strewn with trash. Sometimes the lights were out, and she&rsquo;d have to climb in darkness. Normally, she&rsquo;d wait for the repair team rather than climb the twenty flights
+        to her apartment. But she was weak and exhausted, and she knew it could be hours before the elevator was fixed. So she called on Marsha Williams, the president of the Mitchel Houses Tenants Association, who also used a cane. Williams took
+        her arm, and together they started climbing.</p>
+
+      <p>By the third floor, Freeman&rsquo;s breathing was labored, her fragile lungs working overtime. By the fifth floor, her chest ached. By the 10th, she thought she might collapse. </p>
+
+      <p>By the time they made it to the 20th floor, over an hour had passed. Gasping for breath, Freeman dragged herself inside, hooked up her nebulizer, and pulled the mask over her face.</p>
+
+      <p>&ldquo;I was destroyed,&rdquo; she said. &ldquo;I felt like I was going to go back right into the hospital because I couldn&rsquo;t breathe.&rdquo;</p>
+
+      <img src="images/stairwell.jpg" width="70%">
+
+      <p>Freeman&rsquo;s story is harrowing, but it&rsquo;s not uncommon: elevator problems are a fact of life for the housing authority&rsquo;s 400,000 residents, many of whom are seniors or have disabilities. During a one-month period in late
+        2018, the agency reported 31 elevator outages, 6 of which lasted for a week or more, across its 326 developments. According to city data, the average housing authority elevator was out more than once a month in 2018, up from last year. It
+        also took more than 10 hours, on average, to get the lifts running again&mdash;the slowest response time in the last five years. And a federal probe of the housing authority revealed that in 2016, nearly 2,000 of the agency&rsquo;s reported
+        elevator outages trapped a rider for an average of 2 hours.</p>
+
+      <p>The NYCity News Service found that elevator outages may be even more common than what&rsquo;s been reported by the city, because some appear to be going unreported. Residents of some developments say they&rsquo;re a near-weekly occurrence,
+        and that broken elevators often stay that way for days or weeks. Even when they&rsquo;re not broken, elevators skip floors, shake, and drop without warning.</p>
+
+      <p>&ldquo;The number of elevators which are inoperable at a given time are staggering,&rdquo; said Eliezer Hecht of At-Risk Community Services, a group that represents housing authority tenants.</p>
+
+      <p>Elevator outages are bad for all residents. But they&rsquo;re especially risky for those who are disabled. City data show nearly 40 percent of residents are supported by government programs intended to help seniors and people with
+        disabilities. </p>
+
+      <p>When their elevators don&rsquo;t work, disabled tenants must make a difficult choice: brave the stairs, stay home, or sleep elsewhere. And when they come home to find the elevators broken, they&rsquo;re often stranded in the lobby for hours
+        until help arrives.</p>
+
+      <p>In a city as expensive as New York, public housing may be the only viable option for disabled New Yorkers, 31 percent of whom live in poverty, according to the Mayor&rsquo;s Office for People with Disabilities.</p>
+
+      <p>&ldquo;Most people with disabilities, we don&rsquo;t get to choose,&rdquo; said Milagros Franco, a housing intake coordinator at the Brooklyn Center for the Independence of the Disabled. &ldquo;Our choices, like safety and accessibility, go
+        out the window.&rdquo;</p>
+
+      <p>For Diamond Jones, and for many tenants with disabilities, buildings with broken elevators are neither safe nor accessible. </p>
+
+      <p>&ldquo;I&rsquo;m risking my health,&rdquo; she said. &ldquo;I&rsquo;m risking my life.&rdquo;</p>
+
+      <img src="images/diamond-freeman.jpg" width="70%">
+
+      <p>One night in September, Judith Medina came home to find her neighbor stranded in the lobby of her building at the Frederick Douglass Houses. Medina had dealt with plenty of elevator outages in the 45 years she&rsquo;d lived in the Upper
+        West Side development. But this was another &ldquo;double header,&rdquo; and Medina, who uses a cane, knew she couldn&rsquo;t take stairs to her thirteenth-floor apartment. She also knew that this late at night, the housing authority&rsquo;s
+        repair team would take ages to come fix the elevator.</p>
+
+      <p>&ldquo;You can&rsquo;t call after 11,&rdquo; she said. &ldquo;After 11, you&rsquo;re doomed.&rdquo;</p>
+
+      <p>So Medina made the call, sat on a bench, and waited. And waited some more. She walked from bench to bench. She made small talk with her stranded neighbor. She prayed she wouldn&rsquo;t need to use the bathroom.</p>
+
+      <p>By the time the repairman arrived, they had been waiting for more than four hours.</p>
+
+      <p>Sometime after 3:00 a.m., Medina was able to ride the cramped, creaking elevator up to her apartment. She dumped her bags on the floor and collapsed into bed, totally exhausted.</p>
+
+      <p>Yvonne Castro, a resident of the Mitchel Houses, has been stuck outside too many times to count. Over the summer, she and two other tenants were stranded for more than 12 hours.</p>
+
+      <p>&ldquo;You&rsquo;re a little homeless for a couple hours,&rdquo; she said, laughing. &ldquo;We camped outside in the summer.&rdquo;</p>
+
+      <p>But Castro became serious when she talked about her elderly mother, who is often forced to wait downstairs for hours when she comes back from her dialysis appointments. There&rsquo;s no way to bring her gurney up the fifteen flights of
+        stairs to their apartment.</p>
+
+      <img src="images/judith-medina.jpg" width="70%">
+
+      <p>Others try their luck on the stairs, either by themselves or with the help of neighbors. Tenants in at least three housing authority developments say they&rsquo;ve carried disabled neighbors up dozens of flights of stairs when the elevators
+        are out. </p>
+
+      <p>The day before Thanksgiving, Rayquan McCullum, vice president of the Mitchel Houses Tenants Association, was one of four men who helped carry a teenage boy and his wheelchair up to the eighth floor. The boy wasn&rsquo;t feeling well and
+        needed to get back to his apartment on the eighth floor. But both elevators were out, and it was unclear when the repair team would arrive. So McCullum recruited three friends from the building to help. They each took a corner of the
+        wheelchair and carried the sick boy into the dark, foul-smelling stairwell.</p>
+
+      <p>McCullum strained to hold up his end of the chair as he climbed, trying not to graze the grimy walls. The steps were steep and slick with filth. One of the men stumbled, almost taking them all down. They took a break every flight, but
+        McCullum&rsquo;s back was aching before they reached the second floor.</p>
+
+      <p>When they finally reached the top, sore and sweaty, the boy&rsquo;s mother thanked McCullum profusely. She still hugs him whenever she sees him. </p>
+
+      <p>McCullum was happy to help, but his face darkens with anger when he thinks about the toll broken elevators take on his disabled neighbors.</p>
+
+      <p>&ldquo;I never thought I&rsquo;d see the day I have to take someone up the stairs in a wheelchair when we have two elevators,&rdquo; he said.</p>
+
+      <p>Disabled tenants who try the stairs alone risk dangerous falls. Nilda Allende, also a resident of the Mitchel Houses, was on her way to a doctor&rsquo;s appointment when she discovered that neither of her building&rsquo;s two elevators was
+        working. Allende, who uses a walker and has survived three different cancer diagnoses, knew that taking the stairs down from her ninth-floor apartment could be dangerous. But she couldn&rsquo;t miss her appointment: she needed a refill on
+        her medication. So she pushed her walker into the stairwell and began the long journey down. </p>
+
+      <p>Allende didn&rsquo;t get far before her walker caught on a step. She went crashing down the stairs. Her head hit the cement brick wall with a sickening thud. Her right leg crunched into her walker on the filthy floor, snapping the walker in
+        two.</p>
+
+      <p>&ldquo;I still have the mark,&rdquo; Allende said.</p>
+
+      <p>Allende still managed to get herself to the doctor, who recommended that she go straight to the emergency room.</p>
+
+      <img src="images/nilda-allende.jpg" width="70%">
+
+      <p>When tenants are able to take the elevators, they risk getting stuck in them. Dozens of residents across different developments say they hear the signature alarm go off multiple times per week. Almost every resident the News Service spoke
+        to had a story of their own.</p>
+
+      <p>&ldquo;It&rsquo;s happened to the whole family,&rdquo; said Jos&eacute; Marino, a resident of the Mitchel Houses. He was once stuck in an elevator for an hour while his extended family was visiting. When Dustin Jones got stuck between the
+        second and third floors of his girlfriend&rsquo;s building in the Rutgers Houses, another rider had to jump up and down several times to get the cab moving again. Yvonne Castro says she and her neighbors have gotten stuck so many times that
+        they&rsquo;ve gotten to know the firefighters who come to rescue them.</p>
+
+      <p>&ldquo;They&rsquo;re always here,&rdquo; she said. &ldquo;They know us. We&rsquo;re friends.&rdquo;</p>
+
+      <p>An FDNY spokesperson said that firefighters help rescue people from stuck elevators, but declined to comment further.</p>
+
+      <p>When asked why the elevators got stuck so often, one inspector replied, &ldquo;They&rsquo;re old.&rdquo;</p>
+
+      <p>Still other tenants are trapped inside their apartments, either by an elevator outage or the fear that a future outage will leave them stranded outside. Maria Cotto missed four follow-up appointments after a knee surgery that made it
+        impossible for her to take the stairs down from her 11th-floor apartment. Jos&eacute; Marino, who has used a walker since a childhood bout of polio, misses his day program at the senior center, where he shares a meal with his friends. And
+        Diamond Freeman, the tenant with asthma on the 20th floor, is forced to watch her kids play from the window because she can&rsquo;t manage the stairs.</p>
+
+      <p>&ldquo;You&rsquo;re restricted from going out,&rdquo; said Freeman. &ldquo;You&rsquo;re afraid to go outside.&rdquo; </p>
+
+      <p>That fear also impacts tenants&rsquo; relationships. Dustin Jones has gotten stuck in the elevators at his girlfriend&rsquo;s building so many times that he, like Yvonne Castro, says he&rsquo;s on friendly terms with the FDNY. Already wary
+        of elevators, Jones, who uses a wheelchair, is now so scared of getting trapped that he won&rsquo;t meet his girlfriend upstairs anymore.</p>
+
+      <p>&ldquo;I&rsquo;m terrified to use the elevator,&rdquo; he said. &ldquo;When I go there, I&rsquo;m not sure if I&rsquo;ll come out.&rdquo; </p>
+
+      <p>In a city where accessibility is more the exception than the rule, elevator outages further limit the opportunities available to New Yorkers with disabilities, according to Daniel Porro, a member of the disability advocacy group Disabled in
+        Action.</p>
+
+      <p>&ldquo;People are literally trapped in their own communities,&rdquo; he said.</p>
+
+      <img src="images/diamond-window.jpg">
+
+      <p>Dustin Jones was just glad that, for once, he wasn&rsquo;t the one trapped in an elevator. He was in the lobby of his girlfriend&rsquo;s building in the Rutgers Houses when he heard the signature alarm bell go off. Puzzled, Jones wheeled
+        toward the elevator bay and pressed the call button. The elevator&rsquo;s outer door pulled back, revealing the stainless steel inner door of the elevator cab. It was jammed shut. A man was inside, calling for help.</p>
+
+      <p>It was less than ten minutes after the elevator had been repaired by three men driving a NYCHA van, who identified themselves only as &ldquo;inspectors.&rdquo; The inspectors, who served multiple boroughs, arrived more than an hour late,
+        got the elevator running again, then disappeared upstairs. After weeks of downtime, the newly fixed elevator had made only one successful trip before it got stuck with a passenger inside.</p>
+
+      <p>Jones had been stuck so many times himself that he knew exactly what to do. He coached the trapped man on how to push the door; then, working, they pushed the inner and outer doors closed. Both doors sprang back, and the man was free.</p>
+
+      <p>&ldquo;Oh, wow,&rdquo; the man said breathlessly. &ldquo;Thank you.&rdquo;</p>
+
+      <div class="youTubeWrapper">
+        <iframe width="560" height="315" src="https://www.youtube.com/embed/-aTyCFdzZNE" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+      </div>
+
+      <p>Ronald Topping, president of the Residents&rsquo; Association at the John Adams Houses in the Bronx, remembers a time when things were different. When he first moved to Adams in the mid-sixties, there were lots of repair workers assigned to
+        each development, and the elevators worked well and were repaired quickly. Back then, Topping was so small he could barely reach the button for the 13th floor.</p>
+
+      <p>By 1965, the housing authority had built 69 high-rise developments like the John Adams Houses, intended to provide &ldquo;safe, decent, and affordable&rdquo; housing to working-class New Yorkers. But the agency installed fewer elevators
+        than it should have, according to Nicholas Dagen Bloom, an NYIT professor who studies public housing. That put extra wear and tear on each elevator.</p>
+
+      <p>&ldquo;The lifespan of a NYCHA elevator is very short,&rdquo; Bloom said. &ldquo;They need constant maintenance.&rdquo;</p>
+
+      <p>In its early years, the housing authority had the workforce to deal with the challenge. Developments had plenty of skilled workers onsite. Many workers lived in the developments they served and formed strong bonds with residents. </p>
+
+      <p>But as early as the 1970s, the housing authority&rsquo;s rising costs far outstripped its modest rents, and its budget was slashed repeatedly in the 80s and 90s. The agency hired fewer workers and spread them out over entire boroughs. It
+        also put off scheduled elevator overhauls at dozens of developments, the New York Times reported in 2008.</p>
+
+      <p>At the same time, keeping housing authority&rsquo;s elevators running was becoming even more challenging. The elevators aged, and their old-fashioned technology became harder to repair.</p>
+
+      <p>Starting in the mid-2000s, housing authority elevators were implicated in a series of grisly injuries and deaths. In 2007, an asthmatic woman named Lillian Milan suffered a fatal heart attack as she tried to climb up to her tenth floor
+        apartment; the elevators were out in her building in the Bushwick Houses. A year later, 5-year-old Jacob Neuman fell down an elevator shaft to his death while trying to escape a stuck elevator in the Taylor-Wythe Houses. In 2012, 84-year-old
+        Vicente Rosario was trapped in an elevator in the Woodrow Wilson Houses that rose without warning, breaking his hip and both legs. And on Christmas Eve 2015, Olegario Pabon, also 84, died when an elevator trapped his leg and hand, rose up
+        several feet, and dropped him to the ground.</p>
+
+      <div class="videoHeader">
+        <video autoplay muted loop>
+          <source src="video/caution.mp4" type="video/mp4">
+          </video>
+      </div>
+
+      <p>After the deaths, the housing authority promised to replace the worst elevators and hire new maintenance workers. It also started sending the fire department to shut down any elevator that was behaving strangely. And following a
+        class-action lawsuit brought by disabled tenants, it promised in 2012 to move disabled tenants to lower floors when they asked. </p>
+
+      <p>For a few years, the agency reported that broken elevators were repaired more quickly. And about two-thirds of the housing authority&rsquo;s elevators have been replaced in the last decade, according to Bloom. But performance has declined
+        again in recent years, according to tenants and to city data.</p>
+
+      <div class="dataWrapper">
+        <iframe id="datawrapper-chart-4YJrw" src="https://datawrapper.dwcdn.net/4YJrw/1/" scrolling="no" frameborder="0" style="width: 0; min-width: 100% !important;" height="389"></iframe>
+        <script type="text/javascript">
+          if ("undefined" == typeof window.datawrapper) window.datawrapper = {};
+          window.datawrapper["4YJrw"] = {}, window.datawrapper["4YJrw"].embedDeltas = {
+            "100": 838,
+            "200": 546,
+            "300": 476,
+            "400": 445,
+            "500": 403,
+            "700": 389,
+            "800": 389,
+            "900": 372,
+            "1000": 372
+          }, window.datawrapper["4YJrw"].iframe = document.getElementById("datawrapper-chart-4YJrw"), window.datawrapper["4YJrw"].iframe.style.height = window.datawrapper["4YJrw"].embedDeltas[Math.min(1e3, Math.max(100 * Math.floor(window.datawrapper[
+            "4YJrw"].iframe.offsetWidth / 100), 100))] + "px", window.addEventListener("message", function(a) {
+            if ("undefined" != typeof a.data["datawrapper-height"])
+              for (var b in a.data["datawrapper-height"])
+                if ("4YJrw" == b) window.datawrapper["4YJrw"].iframe.style.height = a.data["datawrapper-height"][b] + "px"
+          });
+        </script>
+      </div>
+
+      <p>At the same time, the replacements, along with fire department shutdowns, have led to long periods without elevator service, trapping residents for weeks or months. And a super-low vacancy rate has made it difficult for the agency to move
+        disabled tenants to lower floors. When Jos&eacute; Marino put in a request for a transfer, he says he was told that there were &ldquo;more disabled&rdquo; tenants living on higher floors than him, so he was unlikely to get moved.</p>
+
+      <p>Throughout its service ups and downs, the housing authority has posted daily lists of elevator outages on its website. But on three visits to its developments during the month of November, the NYCity News Service observed out-of-service
+        elevators that were not listed online. At least one elevator was out of service each in the Adams, Rutgers, and Mitchel Houses when the NYCity News Service visited on November 10, November 25, and November 26, respectively. Tenants at these
+        developments claim that there have been many more outages, particularly on weekends, that have not been reported.</p>
+
+      <p>&ldquo;We never have two elevators working at once,&rdquo; said Marsha Williams, president of the Mitchel Houses Tenants&rsquo; Association.</p>
+
+      <p>There&rsquo;s evidence that NYCHA employees have shared false information about their elevators in the past. In November, three NYCHA elevator inspectors were indicted on charges of falsifying elevator inspection reports in the immediate
+        aftermath of Olegario Pabon&rsquo;s death. And a complaint filed against the housing authority alleges that elevator repair teams were sent to developments ahead of HUD inspectors to fix elevator outages before inspectors could discover
+        them.</p>
+
+      <p>Asked about the declines in elevator service, NYCHA representatives cited the agency&rsquo;s $32 billion funding deficit, which includes an estimated $1.5 billion to repair and replace malfunctioning elevators. They declined to comment on
+        Marino&rsquo;s claims about his transfer or the unreported outages. </p>
+
+      <p>Amidst all the chaos, residents feel frustrated and unheard.</p>
+
+      <p>&ldquo;They don&rsquo;t care anymore,&rdquo; Williams said. &ldquo;They want us out of here anyway.&rdquo;</p>
+
+      <div>
+        <h3>A month of NYCHA outages</h3>
+        <div width="100%" id="timelineAxisTop"></div>
+      </div>
+
+      <p>The housing authority has been the subject of a lot of unflattering coverage in the last year, and not just for its elevators. More than 80 percent of NYCHA tenants lost heat last winter; black mold crept through the developments; and more
+        than a thousand children living in NYCHA developments tested positive for lead poisoning after it was found that agency lied about conducting regular inspections. </p>
+
+      <p>It culminated in a lawsuit filed against the housing authority and the city by the US Attorney, alleging that the agency&rsquo;s neglect hurt tenants. Federal government control of the agency seemed imminent.</p>
+
+      <p>Then, in December, New York City mayor Bill de Blasio proposed that the city turn over NYCHA apartments and land to private developers to close the agency&rsquo;s funding gap. Separately, de Blasio also brokered a deal with a union
+        representing NYCHA workers, allowing them to make repairs on weekends. </p>
+
+      <p>The city has until the end of January to settle on a version of the plan that&rsquo;s approved by the Department of Housing and Urban Development. If they can&rsquo;t, then HUD secretary Ben Carson says he&rsquo;ll hit the housing authority
+        with sanctions.</p>
+
+      <p>As the housing authority and the federal government struggle over the agency&rsquo;s fate, residents go to great lengths to work around their malfunctioning elevators. Tracey Mobley checks twice before stepping into an elevator, fearful of
+        falling down an empty shaft. Ronald Topping opens up an empty first-floor apartment so that his stranded neighbors can use the bathroom. Diamond Freeman asks her kids to walk upstairs with her in case she has a flare-up. Rayquan McCullum
+        enlists his friends to help him carry tenants upstairs. But when his phone buzzes at 5 or 6 in the morning with a text from someone stuck in the lobby, he feels a burning shame.</p>
+
+    </section>
+
+    <section class="last">
+      <p>
+        &ldquo;I love my neighborhood,&rdquo; he said. &ldquo;I love the people. It feels terrible to not get the job done.&rdquo;
+      </p>
+    </section>
 
   </body>
 
