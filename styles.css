@@ -9,12 +9,31 @@ p {
     text-align: left;
 }
 
+.firstGraf {
+    margin-top: 50px;
+}
+
+.firstGraf::first-letter {
+    float: left;
+    font-size: 50px;
+    line-height: 30px;
+    padding-top: 4px;
+    padding-right: 6px;
+    padding-left: 3px;
+}
+
+.lastGraf {
+    margin-bottom: 50px;
+}
+
 img {
     /* Automatically resizes the images to fit the window width */
     max-width: 100%;
     height: auto;
     display: inline-block;
     text-align: center;
+    margin-top: 10px;
+    margin-bottom: 10px;
 }
 
 /* Link styles */
@@ -42,7 +61,7 @@ video {
     top: 0;
     left: 0;
     width: 100%;
-    height: 100%;
+    height: 99.5%;
     overflow: hidden;
     background: rgba(28, 31, 39, 0.6);
 }
@@ -121,20 +140,18 @@ header h3 {
 
 figure {
     /* This display allows the figcaption to align with the image */
-    display: inline-block;
+    /*display: inline-block;*/
     /* Uses the margin trick to center */
-    margin: 0px auto;
+    margin: 25px auto;
 }
-
-img {}
 
 figcaption {
     /* Sets the font size for the caption text */
     font-size: 12px;
     /* Right-aligns the caption text */
-    text-align: right;
+    text-align: center;
     /* A margin-left of 20px helps the caption appear centered with the image even though it's technically a little shorter */
-    margin-left: 20px;
+    /*margin-left: 20px;*/
 }
 
 /* Styles for the final section */
@@ -143,15 +160,31 @@ section.last {
     margin-bottom: 25px;
 }
 
+/* Video subhed styles */
+#videoSubhed {
+    margin-top: 15px;
+    margin-bottom: 10px;
+}
+
+/* YouTube embed styles*/
+.youTubeWrapper {
+    margin-top: 15px;
+    margin-bottom: 15px;
+}
+
 /* Datawrapper chart styles */
 .dataWrapper {
-    margin: 20px auto;
+    margin: 30px auto;
     padding: 20px;
     max-width: 700px;
     border: 1px solid #D3D3D3;
 }
 
-/* D3 Chart styles */
+/*D3 Chart styles*/
+#outageChartWrapper {
+    padding-bottom: 25px;
+}
+
 .axis path,
 .axis line {
     fill: none;
@@ -185,4 +218,9 @@ section.last {
     height: 20px;
     width: 20px;
     float: left;
+}
+
+.outage-chart-explanation {
+    text-align: center;
+    max-width: 575px;
 }
